@@ -1,0 +1,22 @@
+{
+  "name": "apple",
+  "authors": [
+    "Lidjan <minidmnv@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "apache",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "angular": "angularjs#^1.6.1",
+    "bootstrap": "^3.3.7"
+  }
+}

@@ -25,4 +25,7 @@ nbdist/
 
 ### Custom ###
 .gitignore
-.mvn
+
+### package managers ###
+bower_components/
+node_modules/
