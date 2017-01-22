@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         bower_concat: {
             all: {
                 dest: 'src/main/resources/static/js/bower.js',
-                destCss: 'src/main/resources/static/css/bower.css'
+                cssDest: 'src/main/resources/static/css/bower.css'
             }
         },
         uglify: {
