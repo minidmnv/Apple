@@ -5,8 +5,10 @@ module.exports = function(grunt) {
     grunt.initConfig({
         bower_concat: {
             all: {
-                dest: 'src/main/resources/static/js/bower.js',
-                cssDest: 'src/main/resources/static/css/bower.css'
+                dest: {
+                    js: 'src/main/resources/static/js/bower.js',
+                    scss: 'src/main/resources/static/css/bower.css'
+                }
             }
         },
         uglify: {
@@ -24,5 +26,6 @@ module.exports = function(grunt) {
         'bower_concat',
         'uglify'
     ])
+
 };
 

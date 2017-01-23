@@ -1,4 +1,4 @@
-package pl.minidmnv;
+package pl.minidmnv.apple;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
