@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "grunt-bower-concat": "^1.0.0"
+    "grunt-bower-concat": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "load-grunt-tasks": "^3.5.2",
+    "uglify": "^0.1.5"
   },
   "devDependencies": {},
   "scripts": {
