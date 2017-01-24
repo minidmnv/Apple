@@ -25,7 +25,7 @@ public class FixturesController {
     List<Fixture> getUpcomingFixtures(@PathVariable Integer limit) {
         setMaxLimit(limit);
 
-        return null;
+        return getUpcomingFixtures(limit);
     }
 
     private void setMaxLimit(@PathVariable Integer limit) {

@@ -1,11 +1,14 @@
 package pl.minidmnv.apple.source.repository;
 
-import pl.minidmnv.apple.source.tray.FixtureTray;
+import java.util.List;
+
+import pl.minidmnv.apple.data.Fixture;
 
 /**
  * @author mnicinski.
  */
-public class FixtureRepository {
+public interface FixtureRepository {
 
-	private FixtureTray fixtureTray;
+	List<Fixture> getUpcomingFixtures(Integer limit);
+
 }
