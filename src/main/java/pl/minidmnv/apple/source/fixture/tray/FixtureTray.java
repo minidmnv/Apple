@@ -1,4 +1,4 @@
-package pl.minidmnv.apple.source.tray;
+package pl.minidmnv.apple.source.fixture.tray;
 
 import java.util.Optional;
 

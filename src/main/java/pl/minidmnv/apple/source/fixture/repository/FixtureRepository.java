@@ -1,8 +1,8 @@
-package pl.minidmnv.apple.source.repository;
+package pl.minidmnv.apple.source.fixture.repository;
 
 import java.util.List;
 
-import pl.minidmnv.apple.data.Fixture;
+import pl.minidmnv.apple.source.fixture.data.Fixture;
 
 /**
  * @author mnicinski.

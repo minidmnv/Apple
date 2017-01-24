@@ -1,4 +1,4 @@
-package pl.minidmnv.apple.source.controller;
+package pl.minidmnv.apple.source.fixture.controller;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.minidmnv.apple.data.Fixture;
-import pl.minidmnv.apple.source.repository.FixtureRepository;
+import pl.minidmnv.apple.source.fixture.data.Fixture;
+import pl.minidmnv.apple.source.fixture.repository.FixtureRepository;
 
 /**
  * @author minidmnv
@@ -25,7 +25,7 @@ public class FixturesController {
     List<Fixture> getUpcomingFixtures(@PathVariable Integer limit) {
         setMaxLimit(limit);
 
-        return getUpcomingFixtures(limit);
+        return fixtureRepository.getUpcomingFixtures(limit);
     }
 
     private void setMaxLimit(@PathVariable Integer limit) {

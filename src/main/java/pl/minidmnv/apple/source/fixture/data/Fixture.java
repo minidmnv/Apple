@@ -1,4 +1,4 @@
-package pl.minidmnv.apple.data;
+package pl.minidmnv.apple.source.fixture.data;
 
 /**
  * @author minidmnv
