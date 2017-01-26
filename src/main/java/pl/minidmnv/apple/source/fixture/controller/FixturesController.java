@@ -21,16 +21,12 @@ public class FixturesController {
 
     private FixtureRepository fixtureRepository;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/limit/{limit}")
+    @RequestMapping(method = RequestMethod.GET, value = "/limit={limit}")
     List<Fixture> getUpcomingFixtures(@PathVariable Integer limit) {
-        setMaxLimit(limit);
-
-        return fixtureRepository.getUpcomingFixtures(limit);
+        return fixtureRepository.getUpcomingFixtures(declareLimit(limit));
     }
 
-    private void setMaxLimit(@PathVariable Integer limit) {
-        if (limit > MAX_LIMIT) {
-            limit = MAX_LIMIT;
-        }
+    private Integer declareLimit(Integer limit) {
+        return limit > MAX_LIMIT ? MAX_LIMIT : limit;
     }
 }

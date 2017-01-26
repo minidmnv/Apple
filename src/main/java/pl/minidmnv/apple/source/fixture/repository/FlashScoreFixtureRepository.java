@@ -44,7 +44,7 @@ public class FlashScoreFixtureRepository implements FixtureRepository {
 				.collect(Collectors.toList());
 	}
 
-	private Fixture transformStageScheduledElementToFixture(Element e) {
+	private Fixture transformStageScheduledElementToFixture(Element elem) {
 		Fixture result = new Fixture();
 
 		return result;
