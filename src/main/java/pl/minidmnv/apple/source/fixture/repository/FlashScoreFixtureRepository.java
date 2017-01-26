@@ -3,9 +3,11 @@ package pl.minidmnv.apple.source.fixture.repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.jsoup.nodes.Document;
 
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import pl.minidmnv.apple.source.fixture.data.Fixture;
 import pl.minidmnv.apple.source.fixture.repository.picker.FSFixtureDOMElementPicker;
@@ -26,15 +28,25 @@ public class FlashScoreFixtureRepository implements FixtureRepository {
 
 		if (upcomingFixturesDocument.isPresent()) {
 			Document doc = upcomingFixturesDocument.get();
-			picker.init(doc);
+
 			fixtures = parseFixtures(doc);
 		}
 
 		return fixtures;
 	}
 
-	private List parseFixtures(Document document) {
+	private List parseFixtures(Document doc) {
+		picker.init(doc);
 		Elements elements = picker.pickUpcomingFixtures();
-		return null;
+
+		return elements.stream()
+				.map(this::transformStageScheduledElementToFixture)
+				.collect(Collectors.toList());
+	}
+
+	private Fixture transformStageScheduledElementToFixture(Element e) {
+		Fixture result = new Fixture();
+
+		return result;
 	}
 }
