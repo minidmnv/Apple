@@ -1,14 +1,14 @@
 package pl.minidmnv.apple.source.fixture.repository;
 
-import java.util.List;
+import java.util.Optional;
 
-import pl.minidmnv.apple.source.fixture.data.Fixture;
+import org.jsoup.nodes.Document;
 
 /**
  * @author mnicinski.
  */
 public interface FixtureRepository {
 
-	List<Fixture> getUpcomingFixtures(Integer limit);
+	Optional<Document> getUpcomingFixturesDocument();
 
 }

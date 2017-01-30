@@ -1,52 +1,32 @@
 package pl.minidmnv.apple.source.fixture.repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import pl.minidmnv.apple.source.fixture.data.Fixture;
-import pl.minidmnv.apple.source.fixture.repository.picker.FSFixtureDOMElementPicker;
-import pl.minidmnv.apple.source.fixture.tray.FixtureTray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author mnicinski.
  */
+@Repository
 public class FlashScoreFixtureRepository implements FixtureRepository {
 
-	private FixtureTray fixtureTray;
-	private FSFixtureDOMElementPicker picker = new FSFixtureDOMElementPicker();
+	private static final Logger log = LoggerFactory.getLogger(FlashScoreFixtureRepository.class);
 
-	@Override
-	public List<Fixture> getUpcomingFixtures(Integer limit) {
-		List fixtures = new ArrayList();
-		Optional<Document> upcomingFixturesDocument = fixtureTray.getUpcomingFixturesDocument();
-
-		if (upcomingFixturesDocument.isPresent()) {
-			Document doc = upcomingFixturesDocument.get();
-
-			fixtures = parseFixtures(doc);
+	@Override public Optional<Document> getUpcomingFixturesDocument() {
+		Document siteDocument = null;
+		try {
+			 siteDocument = Jsoup.connect("http://www.flashscore.pl/pilka-nozna/polska/ekstraklasa/spotkania/").get();
+		} catch (IOException e) {
+			log.error("Wystąpił błąd podczas połączenia FlashScore", e);
 		}
 
-		return fixtures;
+		log.debug("Zwracam odpowiedź: " + siteDocument.outerHtml());
+		return Optional.ofNullable(siteDocument);
 	}
 
-	private List parseFixtures(Document doc) {
-		picker.init(doc);
-		Elements elements = picker.pickUpcomingFixtures();
-
-		return elements.stream()
-				.map(this::transformStageScheduledElementToFixture)
-				.collect(Collectors.toList());
-	}
-
-	private Fixture transformStageScheduledElementToFixture(Element elem) {
-		Fixture result = new Fixture();
-
-		return result;
-	}
 }
