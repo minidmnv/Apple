@@ -65,17 +65,17 @@ public class FlashScoreFixtureService implements FixtureService {
 
 		int elemIndex = findIndexOfParameter(DATE_PARAM, elem);
 		LocalDateTime date =
-				Instant.ofEpochSecond(Long.valueOf(
-						elem.substring(elemIndex + DATE_PARAM.length(), getIndexOfParameterEnding(elem, elemIndex))))
-				.atZone(ZoneId.systemDefault())
-				.toLocalDateTime();
-		elemIndex = findIndexOfParameter(HOME_TEAM_PARAM, elem);
-		Team homeTeam = new Team(elem.substring(elemIndex + HOME_TEAM_PARAM.length(),
-				getIndexOfParameterEnding(elem, elemIndex)));
+                Instant.ofEpochSecond(Long.valueOf(
+                        elem.substring(elemIndex + DATE_PARAM.length(), getIndexOfParameterEnding(elem, elemIndex))))
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime();
+        elemIndex = findIndexOfParameter(HOME_TEAM_PARAM, elem);
+        Team homeTeam = new Team(elem.substring(elemIndex + HOME_TEAM_PARAM.length(),
+                getIndexOfParameterEnding(elem, elemIndex)));
 
-		elemIndex = findIndexOfParameter(AWAY_TEAM_PARAM, elem);
-		Team awayTeam = new Team(elem.substring(elemIndex + AWAY_TEAM_PARAM.length(),
-				getIndexOfParameterEnding(elem, elemIndex)));;
+        elemIndex = findIndexOfParameter(AWAY_TEAM_PARAM, elem);
+        Team awayTeam = new Team(elem.substring(elemIndex + AWAY_TEAM_PARAM.length(),
+                getIndexOfParameterEnding(elem, elemIndex)));;
 
 		return Fixture.of(homeTeam, awayTeam, date, detailsId);
 	}
