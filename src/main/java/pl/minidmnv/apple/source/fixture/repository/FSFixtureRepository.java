@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
  * @author mnicinski.
  */
 @Repository
-public class FlashScoreFixtureRepository implements FixtureRepository {
+public class FSFixtureRepository implements FixtureRepository {
 
-	private static final Logger log = LoggerFactory.getLogger(FlashScoreFixtureRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(FSFixtureRepository.class);
 
 	@Override public Optional<Document> getUpcomingFixturesDocument() {
 		Document siteDocument = null;

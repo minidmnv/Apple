@@ -7,13 +7,23 @@ angular.module('apple', [ 'ngRoute' ])
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
     }).controller('fixtures', function ($scope, $http) {
-        getFixtures();
+        $scope.limit = 5;
+        getFixtures($scope.limit);
 
-        function getFixtures() {
-            $http.get('/fixtures/limit=' + $scope.limit).then(function (success) {
-                $scope.fixtures = success.data;
-            });
-        }
+        function getFixtures(limit) {
+            $http.get('/fixtures/limit=' + limit)
+                .then(function (success) {
+                    $scope.fixtures = success.data;
+                });
+        };
+
+        $scope.Range = function(start, end) {
+            var result = [];
+            for(var i = start; i <= end; i++) {
+                result.push(i);
+            }
+            return result;
+        };
     })
     .controller('home', function($scope, $http) {
 

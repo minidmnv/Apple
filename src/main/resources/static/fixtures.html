@@ -6,6 +6,13 @@
 </head>
 <body>
     <H3>Fixtures</H3>
-
+    Limit: <select ng-model="limit" ng-options="n for n in Range(1, 25)"></select>
+    <ul>
+        <li ng-repeat="fixture in fixtures">
+            <a href="/fixture/{{fixture.detailsId}}">
+                <p>Fixture: {{fixture.homeTeam.name}} - {{fixture.awayTeam.name}}</p>
+            </a>
+        </li>
+    </ul>
 </body>
 </html>

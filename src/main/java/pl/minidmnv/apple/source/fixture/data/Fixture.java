@@ -1,9 +1,8 @@
 package pl.minidmnv.apple.source.fixture.data;
 
-import pl.minidmnv.apple.source.team.Team;
+import pl.minidmnv.apple.source.team.data.Team;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author minidmnv

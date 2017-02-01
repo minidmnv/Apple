@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 import pl.minidmnv.apple.source.fixture.data.Fixture;
 import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.fixture.repository.FixtureRepository;
-import pl.minidmnv.apple.source.team.Team;
+import pl.minidmnv.apple.source.team.data.Team;
 
 /**
  * @author mnicinski.
  */
 @Service
-public class FlashScoreFixtureService implements FixtureService {
+public class FSFixtureService implements FixtureService {
 
-	private static final Logger log = LoggerFactory.getLogger(FlashScoreFixtureService.class);
+	private static final Logger log = LoggerFactory.getLogger(FSFixtureService.class);
 
 	private static final String HOME_TEAM_PARAM = "CX÷";
 	private static final String AWAY_TEAM_PARAM = "AF÷";
