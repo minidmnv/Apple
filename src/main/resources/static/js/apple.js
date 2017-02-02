@@ -2,11 +2,14 @@ angular.module('apple', [ 'ngRoute' ])
     .config(function ($routeProvider, $httpProvider) {
         $routeProvider.when('/', {
             templateUrl : 'fixtures.html',
-            controller : 'fixtures'
+            controller : 'fixturesCtrl'
+        }).when('/fixture/:fixtureId?', {
+            templateUrl : 'fixture.html',
+            controller : 'fixtureCtrl'
         }).otherwise('/');
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-    }).controller('fixtures', function ($scope, $http, $location) {
+    }).controller('fixturesCtrl', function ($scope, $http, $location) {
         $scope.limit = 5;
         getFixtures($scope.limit);
 
@@ -18,7 +21,7 @@ angular.module('apple', [ 'ngRoute' ])
         };
 
         $scope.showFixture = function(fixtureId) {
-            $location.path('/fixtures/' + fixtureId);
+            $location.path('/fixture/' + fixtureId);
         }
 
         $scope.range = function(start, end) {
@@ -28,6 +31,7 @@ angular.module('apple', [ 'ngRoute' ])
             }
             return result;
         };
+    }).controller('fixtureCtrl', function() {
     }).controller('home', function($scope, $http) {
 
         $http.get('/resource').then(function (success) {
