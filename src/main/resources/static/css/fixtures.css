@@ -1,3 +1,11 @@
-a.fixture:hover {
-    background-color: yellow;
+tr.fixture:hover {
+    background-color: #ffff80;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
 }

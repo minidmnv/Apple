@@ -7,13 +7,25 @@
 </head>
 <body>
     <H3>Fixtures</H3>
-    Limit: <select ng-model="limit" ng-options="n for n in Range(1, 25)"></select>
-    <ul>
-        <li ng-repeat="fixture in fixtures">
-            <a ng-href="/fixture/{{fixture.detailsId}}" class="fixture">
-                <p>Fixture: {{fixture.date}} | {{fixture.homeTeam.name}} - {{fixture.awayTeam.name}}</p>
-            </a>
-        </li>
-    </ul>
+    Limit: <select ng-model="limit" ng-options="n for n in range(1, 25)"></select>
+    <table>
+        <tr>
+            <th colspan="5">Fixtures</th>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Home team</th>
+            <th></th>
+            <th>Away team</th>
+        </tr>
+        <tr ng-repeat="fixture in fixtures" class="fixture" ng-click="showFixture(fixture.detailsId)">
+            <td>{{fixture.date.dayOfMonth}}-{{fixture.date.monthValue}}-{{fixture.date.year}}</td>
+            <td>{{fixture.date.hour}}:{{fixture.date.minute != 0 | iif : fixture.date.minute : '00' }}</td>
+            <td align="right">{{fixture.homeTeam.name}}</td>
+            <td> - </td>
+            <td>{{fixture.awayTeam.name}}</td>
+        </tr>
+    </table>
 </body>
 </html>
