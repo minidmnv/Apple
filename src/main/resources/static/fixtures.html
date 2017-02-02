@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="css/fixtures.css" rel="stylesheet">
     <title>Fixtures</title>
 </head>
 <body>
@@ -9,8 +10,8 @@
     Limit: <select ng-model="limit" ng-options="n for n in Range(1, 25)"></select>
     <ul>
         <li ng-repeat="fixture in fixtures">
-            <a href="/fixture/{{fixture.detailsId}}">
-                <p>Fixture: {{fixture.homeTeam.name}} - {{fixture.awayTeam.name}}</p>
+            <a ng-href="/fixture/{{fixture.detailsId}}" class="fixture">
+                <p>Fixture: {{fixture.date}} | {{fixture.homeTeam.name}} - {{fixture.awayTeam.name}}</p>
             </a>
         </li>
     </ul>
