@@ -14,7 +14,7 @@ import pl.minidmnv.apple.source.fixture.service.FixtureService;
  * @author minidmnv
  */
 @RestController
-@RequestMapping("/fixtures")
+@RequestMapping("/fixtures/")
 public class FixturesController {
 
     private static final Integer MAX_LIMIT = 25;
