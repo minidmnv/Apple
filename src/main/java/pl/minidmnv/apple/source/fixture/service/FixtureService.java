@@ -9,6 +9,6 @@ import pl.minidmnv.apple.source.fixture.data.Fixture;
  */
 public interface FixtureService {
 
-	List<Fixture> getUpcomingFixtures(Integer limit);
+	List<Fixture> getUpcomingFixtures();
 
 }

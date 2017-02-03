@@ -34,7 +34,7 @@ public class FSFixtureService implements FixtureService {
 	@Autowired private FixtureRepository fixtureRepository;
 	@Autowired private FSFixtureDOMElementPicker picker;
 
-	@Override public List<Fixture> getUpcomingFixtures(Integer limit) {
+	@Override public List<Fixture> getUpcomingFixtures() {
 		List fixtures = new ArrayList();
 		Optional<Document> upcomingFixturesDocument = fixtureRepository.getUpcomingFixturesDocument();
 
