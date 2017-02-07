@@ -11,4 +11,5 @@ public interface FixtureRepository {
 
 	Optional<Document> getUpcomingFixturesDocument();
 
+    Optional<Document> getFixtureHeadDetails(String fixtureId);
 }

@@ -3,7 +3,7 @@ angular.module('apple', [ 'ngRoute' ])
         $routeProvider.when('/', {
             templateUrl : 'fixtures.html',
             controller : 'fixturesCtrl'
-        }).when('/fixture/:fixtureId?', {
+        }).when('/fixture/:fixtureId', {
             templateUrl : 'fixture.html',
             controller : 'fixtureCtrl'
         }).otherwise('/');
@@ -23,14 +23,15 @@ angular.module('apple', [ 'ngRoute' ])
             $location.path('/fixture/' + fixtureId);
         }
 
-    }).controller('fixtureCtrl', function($routeParams, $http, $scope) {
+    }).controller('fixtureCtrl', function ($routeParams, $http, $scope) {
+
         $http.get('/api/fixtures/' + $routeParams.fixtureId)
-            .then(function(success)) {
+            .then (function (success) {
                 $scope.fixtureDetails = success.data;
-            }
+        });
+
     }).filter('iif', function() {
         return function(input, trueValue, falseValue) {
             return input ? trueValue : falseValue;
         };
-    })
-    ;
+    });

@@ -14,10 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import pl.minidmnv.apple.source.fixture.data.Fixture;
 import pl.minidmnv.apple.source.fixture.data.FixtureDetails;
+import pl.minidmnv.apple.source.fixture.data.FixtureResult;
 import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.fixture.repository.FixtureRepository;
 import pl.minidmnv.apple.source.team.data.Team;
@@ -43,17 +42,25 @@ public class FSFixtureService implements FixtureService {
 		Optional<Document> upcomingFixturesDocument = fixtureRepository.getUpcomingFixturesDocument();
 
 		if (upcomingFixturesDocument.isPresent()) {
-			Document doc = upcomingFixturesDocument.get();
-
-			fixtures = parseFixtures(doc);
+			fixtures = parseFixtures(upcomingFixturesDocument.get());
 		}
 
 		return fixtures;
 	}
 
-	@Override
-	public FixtureDetails getFixtureDetails(String fixtureId) {
-		throw new NotImplementedException();
+	@Override public Optional<FixtureDetails> getFixtureDetails(String fixtureId) {
+		FixtureDetails fixtureDetails = null;
+		Optional<Document> fixtureHeadDetailsDocument = fixtureRepository.getFixtureHeadDetails(fixtureId);
+
+		if (fixtureHeadDetailsDocument.isPresent()) {
+			fixtureDetails = new FixtureDetails(parseFixtureHeadDetails(fixtureHeadDetailsDocument.get()));
+		}
+
+		return Optional.ofNullable(fixtureDetails);
+	}
+
+	private List<FixtureResult> parseFixtureHeadDetails(Document document) {
+		return null;
 	}
 
 	private List parseFixtures(Document doc) {
@@ -86,7 +93,7 @@ public class FSFixtureService implements FixtureService {
         Team awayTeam = new Team(elem.substring(elemIndex + AWAY_TEAM_PARAM.length(),
                 getIndexOfParameterEnding(elem, elemIndex)));;
 
-		return Fixture.of(homeTeam, awayTeam, date, detailsId);
+		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
 
 	private int findIndexOfParameter(String parameter, String elem, int elemIndex) {
