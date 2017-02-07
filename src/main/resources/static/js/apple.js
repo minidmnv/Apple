@@ -13,7 +13,7 @@ angular.module('apple', [ 'ngRoute' ])
         getFixtures();
 
         function getFixtures() {
-            $http.get('/fixtures/')
+            $http.get('/api/fixtures/')
                 .then(function (success) {
                     $scope.fixtures = success.data;
                 });
@@ -23,7 +23,11 @@ angular.module('apple', [ 'ngRoute' ])
             $location.path('/fixture/' + fixtureId);
         }
 
-    }).controller('fixtureCtrl', function() {
+    }).controller('fixtureCtrl', function($routeParams, $http, $scope) {
+        $http.get('/api/fixtures/' + $routeParams.fixtureId)
+            .then(function(success)) {
+                $scope.fixtureDetails = success.data;
+            }
     }).filter('iif', function() {
         return function(input, trueValue, falseValue) {
             return input ? trueValue : falseValue;

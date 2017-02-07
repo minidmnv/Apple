@@ -13,7 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import pl.minidmnv.apple.source.fixture.data.Fixture;
+import pl.minidmnv.apple.source.fixture.data.FixtureDetails;
 import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.fixture.repository.FixtureRepository;
 import pl.minidmnv.apple.source.team.data.Team;
@@ -45,6 +49,11 @@ public class FSFixtureService implements FixtureService {
 		}
 
 		return fixtures;
+	}
+
+	@Override
+	public FixtureDetails getFixtureDetails(String fixtureId) {
+		throw new NotImplementedException();
 	}
 
 	private List parseFixtures(Document doc) {
