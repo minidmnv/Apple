@@ -25,12 +25,12 @@ public class FixturesController {
     @Autowired private FixtureService fixtureService;
 
     @RequestMapping(method = GET)
-    List<Fixture> getUpcomingFixtures() {
+    public List<Fixture> getUpcomingFixtures() {
         return fixtureService.getUpcomingFixtures();
     }
 
     @RequestMapping(value = "{fixtureId}", method = GET)
-    FixtureDetails getFixtureDetails(@PathVariable String fixtureId) {
+    public FixtureDetails getFixtureDetails(@PathVariable String fixtureId) {
         Optional<FixtureDetails> fixtureDetails = fixtureService.getFixtureDetails(fixtureId);
 
         if (!fixtureDetails.isPresent()) {
