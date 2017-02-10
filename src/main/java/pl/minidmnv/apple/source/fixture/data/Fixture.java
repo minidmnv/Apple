@@ -1,18 +1,18 @@
 package pl.minidmnv.apple.source.fixture.data;
 
-import pl.minidmnv.apple.source.team.data.Team;
-
 import java.time.LocalDateTime;
+
+import pl.minidmnv.apple.source.team.data.Team;
 
 /**
  * @author minidmnv
  */
 public class Fixture {
 
-    public final Team homeTeam;
-    public final Team awayTeam;
-    public final LocalDateTime date;
-    public final String detailsId;
+    private final Team homeTeam;
+    private final Team awayTeam;
+    private final LocalDateTime date;
+    private final String detailsId;
 
     public Fixture(Team homeTeam, Team awayTeam, LocalDateTime date, String detailsId) {
         this.homeTeam = homeTeam;

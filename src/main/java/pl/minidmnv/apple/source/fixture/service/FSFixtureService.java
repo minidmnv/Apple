@@ -3,22 +3,26 @@ package pl.minidmnv.apple.source.fixture.service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jsoup.nodes.Document;
-
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import pl.minidmnv.apple.source.fixture.data.Fixture;
 import pl.minidmnv.apple.source.fixture.data.FixtureDetails;
 import pl.minidmnv.apple.source.fixture.data.FixtureResult;
-import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.fixture.repository.FixtureRepository;
+import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.team.data.Team;
 
 /**
@@ -33,6 +37,7 @@ public class FSFixtureService implements FixtureService {
 	private static final String AWAY_TEAM_PARAM = "AF÷";
 	private static final String DATE_PARAM = "AD÷";
 	private static final String FIXTURE_PARAM = "AA";
+	private static final String RESULT_PARAM = "flag_td";
 
 	@Autowired private FixtureRepository fixtureRepository;
 	@Autowired private FSFixtureDOMElementPicker picker;
@@ -59,8 +64,13 @@ public class FSFixtureService implements FixtureService {
 		return Optional.ofNullable(fixtureDetails);
 	}
 
-	private List<FixtureResult> parseFixtureHeadDetails(Document document) {
-		return null;
+	private List<FixtureResult> parseFixtureHeadDetails(Document doc) {
+		picker.init(doc);
+
+		return picker.pickFixtureHeadResults()
+				.stream()
+				.map(this::transformDomResult)
+				.collect(Collectors.toList());
 	}
 
 	private List parseFixtures(Document doc) {
@@ -74,8 +84,13 @@ public class FSFixtureService implements FixtureService {
 				.collect(Collectors.toList());
 	}
 
+	private FixtureResult transformDomResult(Element elem) {
+		// TODO: minidmnv to implement later
+		throw new NotImplementedException();
+	}
+
 	private Fixture transformStageScheduledElementToFixture(String elem) {
-		log.info(elem.toString());
+		log.info(elem);
 
 		String detailsId = elem.substring(1, getIndexOfParameterEnding(elem, 0));
 
@@ -91,7 +106,7 @@ public class FSFixtureService implements FixtureService {
 
         elemIndex = findIndexOfParameter(AWAY_TEAM_PARAM, elem);
         Team awayTeam = new Team(elem.substring(elemIndex + AWAY_TEAM_PARAM.length(),
-                getIndexOfParameterEnding(elem, elemIndex)));;
+                getIndexOfParameterEnding(elem, elemIndex)));
 
 		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
