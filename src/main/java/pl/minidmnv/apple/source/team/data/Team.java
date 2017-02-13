@@ -1,9 +1,11 @@
 package pl.minidmnv.apple.source.team.data;
 
+import java.io.Serializable;
+
 /**
  * @author minidmnv
  */
-public class Team {
+public class Team implements Serializable{
 
     public final String name;
 

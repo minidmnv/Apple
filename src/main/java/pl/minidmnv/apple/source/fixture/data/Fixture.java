@@ -1,5 +1,6 @@
 package pl.minidmnv.apple.source.fixture.data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import pl.minidmnv.apple.source.team.data.Team;
@@ -7,7 +8,7 @@ import pl.minidmnv.apple.source.team.data.Team;
 /**
  * @author minidmnv
  */
-public class Fixture {
+public class Fixture implements Serializable {
 
     private final Team homeTeam;
     private final Team awayTeam;
@@ -21,4 +22,19 @@ public class Fixture {
         this.detailsId = detailsId;
     }
 
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public String getDetailsId() {
+        return detailsId;
+    }
 }

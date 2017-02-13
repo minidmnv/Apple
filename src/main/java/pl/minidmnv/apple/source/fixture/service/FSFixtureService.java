@@ -37,7 +37,9 @@ public class FSFixtureService implements FixtureService {
 	private static final String AWAY_TEAM_PARAM = "AF÷";
 	private static final String DATE_PARAM = "AD÷";
 	private static final String FIXTURE_PARAM = "AA";
-	private static final String RESULT_PARAM = "flag_td";
+	private static final String COMPETITION_TITLE = "title=\"";
+	private static final String DATE_END_PARAM = "</span";
+	private static final String DATE_BEGIN_PARAM = "date\">";
 
 	@Autowired private FixtureRepository fixtureRepository;
 	@Autowired private FSFixtureDOMElementPicker picker;
@@ -65,6 +67,7 @@ public class FSFixtureService implements FixtureService {
 	}
 
 	private List<FixtureResult> parseFixtureHeadDetails(Document doc) {
+		log.debug("ParseFixtureHeadResults - start: " + doc.ownText());
 		picker.init(doc);
 
 		return picker.pickFixtureHeadResults()
@@ -85,8 +88,24 @@ public class FSFixtureService implements FixtureService {
 	}
 
 	private FixtureResult transformDomResult(Element elem) {
-		// TODO: minidmnv to implement later
-		throw new NotImplementedException();
+		String resultsHtml = elem.html();
+		log.debug("domResult: " + resultsHtml);
+
+		LocalDateTime date = Instant.ofEpochSecond(
+				Long.valueOf(resultsHtml.substring(findIndexOfParameter(DATE_BEGIN_PARAM, resultsHtml),
+						findIndexOfParameter(DATE_END_PARAM, resultsHtml) - DATE_END_PARAM.length()))).atZone(ZoneId.systemDefault())
+				.toLocalDateTime();
+		int elemIndex = findIndexOfParameter(COMPETITION_TITLE, resultsHtml);
+		String competition =  resultsHtml.substring(elemIndex, findIndexOfParameter("\"", resultsHtml,
+				elemIndex));
+
+		//TODO: dokonczyc implementacje wyciagania pozostalych elementow - druzyn, oraz wynikow
+		Team homeTeam = new Team("homeTeam");
+		Team awayTeam = new Team("awayTeam");
+		Integer homeScore = 1;
+		Integer awayScore = 0;
+
+		return new FixtureResult(competition, homeTeam, awayTeam, homeScore, awayScore, date);
 	}
 
 	private Fixture transformStageScheduledElementToFixture(String elem) {
@@ -97,22 +116,22 @@ public class FSFixtureService implements FixtureService {
 		int elemIndex = findIndexOfParameter(DATE_PARAM, elem);
 		LocalDateTime date =
                 Instant.ofEpochSecond(Long.valueOf(
-                        elem.substring(elemIndex + DATE_PARAM.length(), getIndexOfParameterEnding(elem, elemIndex))))
+                        elem.substring(elemIndex, getIndexOfParameterEnding(elem, elemIndex))))
                         .atZone(ZoneId.systemDefault())
                         .toLocalDateTime();
         elemIndex = findIndexOfParameter(HOME_TEAM_PARAM, elem);
-        Team homeTeam = new Team(elem.substring(elemIndex + HOME_TEAM_PARAM.length(),
+        Team homeTeam = new Team(elem.substring(elemIndex,
                 getIndexOfParameterEnding(elem, elemIndex)));
 
         elemIndex = findIndexOfParameter(AWAY_TEAM_PARAM, elem);
-        Team awayTeam = new Team(elem.substring(elemIndex + AWAY_TEAM_PARAM.length(),
+        Team awayTeam = new Team(elem.substring(elemIndex,
                 getIndexOfParameterEnding(elem, elemIndex)));
 
 		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
 
 	private int findIndexOfParameter(String parameter, String elem, int elemIndex) {
-		return elem.indexOf(parameter, elemIndex);
+		return elem.indexOf(parameter, elemIndex) + parameter.length();
 	}
 
 	private int findIndexOfParameter(String parameter, String elem) {
@@ -120,6 +139,6 @@ public class FSFixtureService implements FixtureService {
 	}
 
 	private int getIndexOfParameterEnding(String elem, int elemIndex) {
-		return findIndexOfParameter("¬", elem, elemIndex);
+		return findIndexOfParameter("¬", elem, elemIndex) - 1;
 	}
 }

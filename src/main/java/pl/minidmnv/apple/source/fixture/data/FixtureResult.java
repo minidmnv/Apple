@@ -1,5 +1,7 @@
 package pl.minidmnv.apple.source.fixture.data;
 
+import pl.minidmnv.apple.source.team.data.Team;
+
 import java.time.LocalDateTime;
 
 /**
@@ -8,13 +10,13 @@ import java.time.LocalDateTime;
 public class FixtureResult {
 
 	private final String competition;
-	private final String homeTeam;
-	private final String awayTeam;
+	private final Team homeTeam;
+	private final Team awayTeam;
 	private final Integer homeScore;
 	private final Integer awayScore;
 	private final LocalDateTime date;
 
-	public FixtureResult(String competition, String homeTeam, String awayTeam, Integer homeScore, Integer awayScore, LocalDateTime date) {
+	public FixtureResult(String competition, Team homeTeam, Team awayTeam, Integer homeScore, Integer awayScore, LocalDateTime date) {
 		this.competition = competition;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
@@ -23,4 +25,27 @@ public class FixtureResult {
 		this.date = date;
 	}
 
+	public String getCompetition() {
+		return competition;
+	}
+
+	public Team getHomeTeam() {
+		return homeTeam;
+	}
+
+	public Team getAwayTeam() {
+		return awayTeam;
+	}
+
+	public Integer getHomeScore() {
+		return homeScore;
+	}
+
+	public Integer getAwayScore() {
+		return awayScore;
+	}
+
+	public LocalDateTime getDate() {
+		return date;
+	}
 }
