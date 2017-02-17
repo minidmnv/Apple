@@ -27,7 +27,9 @@ public class FSFixtureParser {
 	private static final String COMPETITION_TITLE = "title=\"";
 	private static final String DATE_END_PARAM = "</span";
 	private static final String DATE_BEGIN_PARAM = "date\">";
-	private static final String TEAM_PARAM = "name\"><span>";
+	private static final String TEAM_PARAM_END = "span>";
+	private static final String TEAM_PARAM = "name\"><" + TEAM_PARAM_END;
+	private static final String STRONG_LAB_REGEX = "</?strong>";
 
 	private int findIndexOfParameter(String parameter, String elem, int elemIndex) {
 		return elem.indexOf(parameter, elemIndex) + parameter.length();
@@ -69,19 +71,27 @@ public class FSFixtureParser {
 
 		LocalDateTime date = Instant.ofEpochSecond(
 				Long.valueOf(resultsHtml.substring(findIndexOfParameter(DATE_BEGIN_PARAM, resultsHtml),
-						findIndexOfParameter(DATE_END_PARAM, resultsHtml) - DATE_END_PARAM.length()))).atZone(ZoneId.systemDefault())
-				.toLocalDateTime();
+						findIndexOfParameter(DATE_END_PARAM, resultsHtml) - DATE_END_PARAM.length())))
+				.atZone(ZoneId.systemDefault()).toLocalDateTime();
 		int elemIndex = findIndexOfParameter(COMPETITION_TITLE, resultsHtml);
 		String competition =  resultsHtml.substring(elemIndex, findIndexOfParameter("\"", resultsHtml,
 				elemIndex));
 
 		//TODO: dokonczyc implementacje wyciagania pozostalych elementow - druzyn, oraz wynikow
-		Team homeTeam = new Team("homeTeam");
-		Team awayTeam = new Team("awayTeam");
+		elemIndex = findIndexOfParameter(TEAM_PARAM, resultsHtml);
+		Team homeTeam = new Team(cutOutStrongLab(resultsHtml.substring(elemIndex,
+				findIndexOfParameter(TEAM_PARAM_END, resultsHtml, elemIndex) - (TEAM_PARAM_END.length() + 2))));
+		elemIndex = findIndexOfParameter(TEAM_PARAM, resultsHtml, elemIndex);
+		Team awayTeam = new Team(cutOutStrongLab(resultsHtml.substring(elemIndex,
+				findIndexOfParameter(TEAM_PARAM_END, resultsHtml, elemIndex) - (TEAM_PARAM_END.length() + 2))));
 		Integer homeScore = 1;
 		Integer awayScore = 0;
 
 		return new FixtureResult(competition, homeTeam, awayTeam, homeScore, awayScore, date);
+	}
+
+	private String cutOutStrongLab(String text) {
+		return text.replaceAll(STRONG_LAB_REGEX, "");
 	}
 
 }
