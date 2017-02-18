@@ -65,6 +65,7 @@ public class FSFixtureParser {
 		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
 
+	//TODO: przerobic na korzystanie z pickera
 	public FixtureResult transformDomResult(Element elem) {
 		String resultsHtml = elem.html();
 		log.debug("domResult: " + resultsHtml);
