@@ -6,6 +6,11 @@ import static pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElemen
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
+import pl.minidmnv.apple.source.team.data.Team;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * @author minidmnv
@@ -26,4 +31,30 @@ public class FSFixtureDOMElementPicker {
 	public Elements pickFixtureHeadResults() {
 		return payload.getElementsByClass(FIXTURE_RESULT_TR_CLASS.elementName);
 	}
+
+    public LocalDateTime pickFixtureDate() {
+        return Instant.ofEpochSecond(
+                Long.valueOf(payload.getElementsByClass("date").text()))
+                        .atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    public Team pickFixtureHomeTeam() {
+        return new Team(payload.getElementsByClass("name").first().text());
+    }
+
+    public Team pickFixtureAwayTeam() {
+        return new Team(payload.getElementsByClass("name").last().text());
+    }
+
+    public String pickFixtureCompetition() {
+        return payload.getElementsByClass("flag_td").attr("title");
+    }
+
+    public Integer pickFixtureHomeScore() {
+        return Integer.valueOf(payload.getElementsByClass("score").text().substring(0, 1));
+    }
+
+    public Integer pickFixtureAwayScore() {
+        return Integer.valueOf(payload.getElementsByClass("score").text().substring(4, 5));
+    }
 }

@@ -7,10 +7,12 @@ import java.time.ZoneId;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pl.minidmnv.apple.source.fixture.data.Fixture;
 import pl.minidmnv.apple.source.fixture.data.FixtureResult;
+import pl.minidmnv.apple.source.fixture.service.picker.FSFixtureDOMElementPicker;
 import pl.minidmnv.apple.source.team.data.Team;
 
 /**
@@ -24,12 +26,8 @@ public class FSFixtureParser {
 	private static final String HOME_TEAM_PARAM = "CX÷";
 	private static final String AWAY_TEAM_PARAM = "AF÷";
 	private static final String DATE_PARAM = "AD÷";
-	private static final String COMPETITION_TITLE = "title=\"";
-	private static final String DATE_END_PARAM = "</span";
-	private static final String DATE_BEGIN_PARAM = "date\">";
-	private static final String TEAM_PARAM_END = "span>";
-	private static final String TEAM_PARAM = "name\"><" + TEAM_PARAM_END;
-	private static final String STRONG_LAB_REGEX = "</?strong>";
+
+	@Autowired private FSFixtureDOMElementPicker picker;
 
 	private int findIndexOfParameter(String parameter, String elem, int elemIndex) {
 		return elem.indexOf(parameter, elemIndex) + parameter.length();
@@ -65,34 +63,17 @@ public class FSFixtureParser {
 		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
 
-	//TODO: przerobic na korzystanie z pickera
 	public FixtureResult transformDomResult(Element elem) {
-		String resultsHtml = elem.html();
-		log.debug("domResult: " + resultsHtml);
+		picker.init(elem);
 
-		LocalDateTime date = Instant.ofEpochSecond(
-				Long.valueOf(resultsHtml.substring(findIndexOfParameter(DATE_BEGIN_PARAM, resultsHtml),
-						findIndexOfParameter(DATE_END_PARAM, resultsHtml) - DATE_END_PARAM.length())))
-				.atZone(ZoneId.systemDefault()).toLocalDateTime();
-		int elemIndex = findIndexOfParameter(COMPETITION_TITLE, resultsHtml);
-		String competition =  resultsHtml.substring(elemIndex, findIndexOfParameter("\"", resultsHtml,
-				elemIndex));
-
-		//TODO: dokonczyc implementacje wyciagania pozostalych elementow - druzyn, oraz wynikow
-		elemIndex = findIndexOfParameter(TEAM_PARAM, resultsHtml);
-		Team homeTeam = new Team(cutOutStrongLab(resultsHtml.substring(elemIndex,
-				findIndexOfParameter(TEAM_PARAM_END, resultsHtml, elemIndex) - (TEAM_PARAM_END.length() + 2))));
-		elemIndex = findIndexOfParameter(TEAM_PARAM, resultsHtml, elemIndex);
-		Team awayTeam = new Team(cutOutStrongLab(resultsHtml.substring(elemIndex,
-				findIndexOfParameter(TEAM_PARAM_END, resultsHtml, elemIndex) - (TEAM_PARAM_END.length() + 2))));
-		Integer homeScore = 1;
-		Integer awayScore = 0;
+		LocalDateTime date = picker.pickFixtureDate();
+		String competition = picker.pickFixtureCompetition();
+		Team homeTeam = picker.pickFixtureHomeTeam();
+		Team awayTeam = picker.pickFixtureAwayTeam();
+		Integer homeScore = picker.pickFixtureHomeScore();
+		Integer awayScore = picker.pickFixtureAwayScore();
 
 		return new FixtureResult(competition, homeTeam, awayTeam, homeScore, awayScore, date);
-	}
-
-	private String cutOutStrongLab(String text) {
-		return text.replaceAll(STRONG_LAB_REGEX, "");
 	}
 
 }
