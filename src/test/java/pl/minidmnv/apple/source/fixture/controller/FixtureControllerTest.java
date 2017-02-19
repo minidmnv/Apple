@@ -1,6 +1,6 @@
-package pl.minidmnv.apple.source.fixture;
+package pl.minidmnv.apple.source.fixture.controller;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import pl.minidmnv.apple.source.exception.FSConnectionException;
 import pl.minidmnv.apple.source.fixture.controller.FixturesController;
 import pl.minidmnv.apple.source.fixture.controller.FixturesControllerAdvice;
 import pl.minidmnv.apple.source.fixture.service.FixtureService;
@@ -24,7 +23,7 @@ import pl.minidmnv.apple.source.fixture.service.FixtureService;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class FixtureControllerAdviceTest {
+public class FixtureControllerTest {
 
 	private MockMvc mockMvc;
 
@@ -32,23 +31,16 @@ public class FixtureControllerAdviceTest {
 	public void setUp() {
 		FixturesController fixturesController = new FixturesController();
 		FixtureService fixtureRepositoryMock = Mockito.mock(FixtureService.class);
-		Mockito.when(fixtureRepositoryMock.getUpcomingFixtures()).thenThrow(new FSConnectionException());
-		Mockito.when(fixtureRepositoryMock.getFixtureDetails("fixtureId")).thenReturn(Optional.empty());
+		Mockito.when(fixtureRepositoryMock.getUpcomingFixtures()).thenReturn(new ArrayList<>());
 		ReflectionTestUtils.setField(fixturesController, "fixtureService", fixtureRepositoryMock);
 		mockMvc = MockMvcBuilders.standaloneSetup(fixturesController).setControllerAdvice(new FixturesControllerAdvice())
 				.build();
 	}
 
 	@Test
-	public void shouldFixtureRepositoryResponseStatusNotFound() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/fixtures/fixtureId"))
-				.andExpect(MockMvcResultMatchers.status().isNotFound());
-	}
-
-	@Test
-	public void shouldFixtureRepositoryResponseStatusServiceUnavailable() throws Exception {
+	public void shouldFixtureListResponseStatusOk() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/fixtures/"))
-				.andExpect(MockMvcResultMatchers.status().isServiceUnavailable());
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 }

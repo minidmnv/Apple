@@ -7,10 +7,14 @@ import java.io.Serializable;
  */
 public class Team implements Serializable{
 
-    public final String name;
+    private final String name;
 
     public Team(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

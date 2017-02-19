@@ -29,6 +29,10 @@ public class FSFixtureParser {
 
 	@Autowired private FSFixtureDOMElementPicker picker;
 
+	public FSFixtureParser(FSFixtureDOMElementPicker picker) {
+		this.picker = picker;
+	}
+
 	private int findIndexOfParameter(String parameter, String elem, int elemIndex) {
 		return elem.indexOf(parameter, elemIndex) + parameter.length();
 	}

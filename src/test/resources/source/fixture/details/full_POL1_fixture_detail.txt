@@ -1,0 +1,19 @@
+    <span class="date">1486044000</span>
+</td>
+<td class="flag_td" title="Międzyklubowe towarzyskie (Świat)">
+    <span class="flag fl_8"></span>CF</td>
+<td class="name highTeam">
+    <span>Zagłębie Lubin</span>
+</td>
+<td class="name">
+    <span>MTK Budapest</span>
+</td>
+<td class="">
+    <span class="score"><strong>0 : 0</strong></span>
+</td>
+<td class="winLose">
+    <span class="winLoseIcon">
+        <a title="Remis" class="form-bg-last form-d">
+            <span></span>
+        </a>
+    </span>

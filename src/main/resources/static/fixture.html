@@ -5,6 +5,12 @@
     <title>Fixture</title>
 </head>
 <body>
-
+    <div ng-repeat="result in fixtureDetails.headFixtureResults">
+        [{{result.date.dayOfMonth}}-{{result.date.monthValue}}-{{result.date.year}}]
+        {{result.competition}} --
+        {{result.homeTeam.name}} {{result.homeScore}}
+        -
+        {{result.awayScore}} {{result.awayTeam.name}}
+    </div>
 </body>
 </html>
