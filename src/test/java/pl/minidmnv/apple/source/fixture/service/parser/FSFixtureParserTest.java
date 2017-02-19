@@ -34,41 +34,46 @@ public class FSFixtureParserTest {
     }
 
     @Test
-    public void shouldReturnProperFixtureResultHomeScore() throws IOException {
+    public void shouldReturnProperFixtureResultHomeScore() {
         FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
         assertEquals(new Integer(0), fixtureResult.getHomeScore());
     }
 
     @Test
-    public void shouldReturnProperFixtureResultAwayScore() throws IOException {
+    public void shouldReturnProperFixtureResultAwayScore() {
         FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
         assertEquals(new Integer(0), fixtureResult.getAwayScore());
     }
 
     @Test
-    public void shouldReturnProperFixtureResultHomeTeam() throws IOException {
+    public void shouldReturnProperFixtureResultHomeTeam() {
         FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
         assertEquals("Zagłębie Lubin", fixtureResult.getHomeTeam().getName());
     }
 
     @Test
-    public void shouldReturnProperFixtureResultAwayTeam() throws IOException {
+    public void shouldReturnProperFixtureResultAwayTeam() {
         FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
         assertEquals("MTK Budapest", fixtureResult.getAwayTeam().getName());
     }
 
     @Test
-    public void shouldReturnProperFixtureResultCompetition() throws IOException {
+    public void shouldReturnProperFixtureResultCompetition() {
         FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
         assertEquals("Międzyklubowe towarzyskie (Świat)", fixtureResult.getCompetition());
     }
 
-    private Element getFullFixtureDetailElement() throws IOException {
+    private Element getFullFixtureDetailElement() {
         Element result = new Element(Tag.valueOf("td"), "");
-        result.append(new String(
-                Files.readAllBytes(FileSystems.getDefault().getPath(
-                                RESOURCES_ROOT_PATH + FIXTURE_DETAILS_DIR + FULL_POL1_FIXTURE_DETAIL)),
-                "UTF8"));
+        try {
+            result.append(new String(
+                    Files.readAllBytes(FileSystems.getDefault().getPath(
+                                    RESOURCES_ROOT_PATH + FIXTURE_DETAILS_DIR + FULL_POL1_FIXTURE_DETAIL)),
+                    "UTF8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 
