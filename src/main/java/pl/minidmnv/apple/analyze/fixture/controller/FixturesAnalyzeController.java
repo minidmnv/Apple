@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.minidmnv.apple.analyze.fixture.data.FixtureAnalyzeResult;
-import pl.minidmnv.apple.analyze.fixture.service.AnalyzerService;
+import pl.minidmnv.apple.analyze.fixture.service.AnalyzeService;
 import pl.minidmnv.apple.source.fixture.data.FixtureDetails;
 
 /**
@@ -19,7 +19,7 @@ import pl.minidmnv.apple.source.fixture.data.FixtureDetails;
 public class FixturesAnalyzeController {
 
 	@Autowired
-	private AnalyzerService service;
+	private AnalyzeService service;
 
 	@RequestMapping(method = POST)
 	public FixtureAnalyzeResult analyzeFixture(@RequestParam FixtureDetails fixture) {
