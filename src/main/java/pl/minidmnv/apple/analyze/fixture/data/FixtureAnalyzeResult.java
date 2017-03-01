@@ -1,27 +1,31 @@
 package pl.minidmnv.apple.analyze.fixture.data;
 
+import pl.minidmnv.apple.shared.data.TeamStatistics;
+
+import java.io.Serializable;
+
 /**
  * @author mnicinski.
  */
-public final class FixtureAnalyzeResult {
+public final class FixtureAnalyzeResult implements Serializable {
 
-	private final TeamFixtureAnalysis headTeamFixtureAnalysis;
-	private final TeamFixtureAnalysis awayTeamFixtureAnalysis;
+	private final TeamStatistics headTeamStatistics;
+	private final TeamStatistics awayTeamStatistics;
 	private final FixtureCrossAnalysis crossAnalysis;
 
-	public FixtureAnalyzeResult(TeamFixtureAnalysis headTeamFixtureAnalysis,
-	                            TeamFixtureAnalysis awayTeamFixtureAnalysis, FixtureCrossAnalysis crossAnalysis) {
-		this.headTeamFixtureAnalysis = headTeamFixtureAnalysis;
-		this.awayTeamFixtureAnalysis = awayTeamFixtureAnalysis;
+	public FixtureAnalyzeResult(TeamStatistics headTeamStatistics,
+								TeamStatistics awayTeamStatistics, FixtureCrossAnalysis crossAnalysis) {
+		this.headTeamStatistics = headTeamStatistics;
+		this.awayTeamStatistics = awayTeamStatistics;
 		this.crossAnalysis = crossAnalysis;
 	}
 
-	public TeamFixtureAnalysis getHeadTeamFixtureAnalysis() {
-		return headTeamFixtureAnalysis;
+	public TeamStatistics getHeadTeamStatistics() {
+		return headTeamStatistics;
 	}
 
-	public TeamFixtureAnalysis getAwayTeamFixtureAnalysis() {
-		return awayTeamFixtureAnalysis;
+	public TeamStatistics getAwayTeamStatistics() {
+		return awayTeamStatistics;
 	}
 
 	public FixtureCrossAnalysis getCrossAnalysis() {

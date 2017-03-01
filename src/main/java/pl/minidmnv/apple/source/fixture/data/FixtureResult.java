@@ -2,12 +2,13 @@ package pl.minidmnv.apple.source.fixture.data;
 
 import pl.minidmnv.apple.source.team.data.Team;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author minidmnv
  */
-public class FixtureResult {
+public class FixtureResult implements Serializable {
 
 	private final String competition;
 	private final Team homeTeam;
