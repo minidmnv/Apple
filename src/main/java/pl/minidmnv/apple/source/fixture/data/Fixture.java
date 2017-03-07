@@ -8,7 +8,7 @@ import pl.minidmnv.apple.source.team.data.Team;
 /**
  * @author minidmnv
  */
-public class Fixture implements Serializable {
+public final class Fixture implements Serializable {
 
     private final Team homeTeam;
     private final Team awayTeam;

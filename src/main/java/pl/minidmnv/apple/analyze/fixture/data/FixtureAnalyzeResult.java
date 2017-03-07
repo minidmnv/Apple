@@ -14,18 +14,10 @@ public final class FixtureAnalyzeResult implements Serializable {
 	private final FixtureCrossAnalysis crossAnalysis;
 
 	public FixtureAnalyzeResult(TeamStatistics headTeamStatistics,
-								TeamStatistics awayTeamStatistics, FixtureCrossAnalysis crossAnalysis) {
-		this.headTeamStatistics = headTeamStatistics;
+								TeamStatistics awayTeamStatistics) {
 		this.awayTeamStatistics = awayTeamStatistics;
-		this.crossAnalysis = crossAnalysis;
-	}
-
-	public TeamStatistics getHeadTeamStatistics() {
-		return headTeamStatistics;
-	}
-
-	public TeamStatistics getAwayTeamStatistics() {
-		return awayTeamStatistics;
+		this.headTeamStatistics = headTeamStatistics;
+		this.crossAnalysis = new FixtureCrossAnalysis(headTeamStatistics, awayTeamStatistics);
 	}
 
 	public FixtureCrossAnalysis getCrossAnalysis() {
