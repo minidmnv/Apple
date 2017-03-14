@@ -57,4 +57,8 @@ public class FSFixtureDOMElementPicker {
     public Integer pickFixtureAwayScore() {
         return Integer.valueOf(payload.getElementsByClass("score").text().substring(4, 5));
     }
+
+    public String pickFixtureDetailsAddress() {
+        return payload.getElementsByAttribute("onClick").attr("onClick");
+    }
 }

@@ -62,7 +62,7 @@ public class FSFixtureService implements FixtureService {
 
 		return picker.pickFixtureHeadResults()
 				.stream()
-				.map(parser::transformDomResult)
+				.map(parser::constructFixtureFromDOM)
 				.collect(Collectors.toList());
 	}
 

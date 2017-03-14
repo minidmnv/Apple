@@ -13,6 +13,10 @@ public class SimpleAnalyzer implements AnalyzeService {
 
 	@Override
 	public FixtureAnalyzeResult analyzeFixture(FixtureDetails details) {
+		//TODO: dla kazdego wyniku trzeba by
+		details.getHeadFixtureResults()
+				.forEach(result -> result.getHomeTeam());
+
 		return null;
 	}
 

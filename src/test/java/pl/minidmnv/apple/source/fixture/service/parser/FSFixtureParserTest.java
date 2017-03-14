@@ -35,31 +35,31 @@ public class FSFixtureParserTest {
 
     @Test
     public void shouldReturnProperFixtureResultHomeScore() {
-        FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
+        FixtureResult fixtureResult = parser.constructFixtureFromDOM(getFullFixtureDetailElement());
         assertEquals(new Integer(0), fixtureResult.getHomeScore());
     }
 
     @Test
     public void shouldReturnProperFixtureResultAwayScore() {
-        FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
+        FixtureResult fixtureResult = parser.constructFixtureFromDOM(getFullFixtureDetailElement());
         assertEquals(new Integer(0), fixtureResult.getAwayScore());
     }
 
     @Test
     public void shouldReturnProperFixtureResultHomeTeam() {
-        FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
+        FixtureResult fixtureResult = parser.constructFixtureFromDOM(getFullFixtureDetailElement());
         assertEquals("Zagłębie Lubin", fixtureResult.getHomeTeam().getName());
     }
 
     @Test
     public void shouldReturnProperFixtureResultAwayTeam() {
-        FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
+        FixtureResult fixtureResult = parser.constructFixtureFromDOM(getFullFixtureDetailElement());
         assertEquals("MTK Budapest", fixtureResult.getAwayTeam().getName());
     }
 
     @Test
     public void shouldReturnProperFixtureResultCompetition() {
-        FixtureResult fixtureResult = parser.transformDomResult(getFullFixtureDetailElement());
+        FixtureResult fixtureResult = parser.constructFixtureFromDOM(getFullFixtureDetailElement());
         assertEquals("Międzyklubowe towarzyskie (Świat)", fixtureResult.getCompetition());
     }
 

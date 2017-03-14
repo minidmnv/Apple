@@ -67,7 +67,7 @@ public class FSFixtureParser {
 		return new Fixture(homeTeam, awayTeam, date, detailsId);
 	}
 
-	public FixtureResult transformDomResult(Element elem) {
+	public FixtureResult constructFixtureFromDOM(Element elem) {
 		picker.init(elem);
 
 		LocalDateTime date = picker.pickFixtureDate();
@@ -76,8 +76,9 @@ public class FSFixtureParser {
 		Team awayTeam = picker.pickFixtureAwayTeam();
 		Integer homeScore = picker.pickFixtureHomeScore();
 		Integer awayScore = picker.pickFixtureAwayScore();
+		String fixtureDetails = picker.pickFixtureDetailsAddress();
 
-		return new FixtureResult(competition, homeTeam, awayTeam, homeScore, awayScore, date);
+		return new FixtureResult(competition, homeTeam, awayTeam, homeScore, awayScore, date, fixtureDetails);
 	}
 
 }

@@ -16,7 +16,5 @@ public final class FixtureCrossAnalysis implements Serializable {
     public FixtureCrossAnalysis(TeamStatistics headTeamStatistics, TeamStatistics awayTeamStatistics) {
         this.headTeamStatistics = headTeamStatistics;
         this.awayTeamStatistics = awayTeamStatistics;
-
-
     }
 }

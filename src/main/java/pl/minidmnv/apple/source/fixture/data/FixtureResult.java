@@ -16,14 +16,16 @@ public class FixtureResult implements Serializable {
 	private final Integer homeScore;
 	private final Integer awayScore;
 	private final LocalDateTime date;
+	private final String fixtureDetails;
 
-	public FixtureResult(String competition, Team homeTeam, Team awayTeam, Integer homeScore, Integer awayScore, LocalDateTime date) {
+	public FixtureResult(String competition, Team homeTeam, Team awayTeam, Integer homeScore, Integer awayScore, LocalDateTime date, String fixtureDetails) {
 		this.competition = competition;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.homeScore = homeScore;
 		this.awayScore = awayScore;
 		this.date = date;
+		this.fixtureDetails = fixtureDetails;
 	}
 
 	public String getCompetition() {
